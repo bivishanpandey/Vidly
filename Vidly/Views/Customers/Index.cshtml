@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Vidly.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customers</h2>
+
+@if (!Model.Any())
+{
+    <h2>We don't have any customers yet!</h2>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Membership Type</th>
+                <th>Discount Rate</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var customer in Model)
+            {
+            <tr>
+                <td>
+                    @Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)
+                </td>
+                <td>
+                    @customer.MembershipType.Name
+                    @*@if (customer.MembershipType.DurationInMonths == 0)
+                    {
+                        <p>Pay as you go</p>
+                    }
+                    else if (customer.MembershipType.DurationInMonths == 1)
+                    {
+                        <p>Monthly</p>
+                    }
+                    else if (customer.MembershipType.DurationInMonths == 3)
+                    {
+                        <p>Three Month</p>
+                    }
+                    else
+                    {
+                        <p>Yearly</p>
+                    }*@
+                </td>
+                <td>
+                    @customer.MembershipType.DiscountRate %
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
